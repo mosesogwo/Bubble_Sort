@@ -5,12 +5,13 @@ def swap(arr, source, destination)
 end
 
 def bubble_sort(arr)
-  n = arr.length
-  # i = 0
-  # while (i < n)
-  for element in arr
-    p element
-  end
+  passes = arr.length
+  pass = 0
+  last_index = arr.length - 2
+
+  arr.each_with_index { |ele, index|
+    swap(arr, index, index + 1) if index <= last_index && arr[index] > arr[index + 1]
+  }
 end
 
-p bubble_sort([1, 2, 3])
+p bubble_sort([6, 5, 3, 9, 0])
