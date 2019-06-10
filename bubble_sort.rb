@@ -21,7 +21,7 @@ def bubble_sort(arr)
   arr
 end
 
-p bubble_sort([6, 5, 3, 9, 0])
+# p bubble_sort([6, 5, 3, 9, 0])
 
 def bubble_sort_by(arr)
   passes = arr.length
@@ -44,6 +44,6 @@ def bubble_sort_by(arr)
 end
 
 bubble_sort_by(["hia","hello", "hib", "arsrejdjshshsll", "hey","bubble"]) do |left,right|
-  left.length <=> right.length
+  left.length - right.length
 end
 
