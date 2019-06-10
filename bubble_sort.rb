@@ -1,3 +1,4 @@
+# swap 2 elements between source and destination indices of an array
 def swap(arr, source, destination)
   temp = arr[source]
   arr[source] = arr[destination]
@@ -31,19 +32,17 @@ def bubble_sort_by(arr)
     swaps = 0
     arr.each_with_index { |ele, index|
       if index <= last_index
-        diff = yield arr[index], arr[index+1]
-        swap(arr, index, index + 1) and swaps += 1 if diff > 0
+        diff = yield arr[index], arr[index + 1]
+        swap(arr, index, index + 1) and swaps += 1 if diff.positive?
       end
     }
     break if swaps.equal?(0)
-    p arr
     pass += 1
     last_index = passes - (2 + pass)
   end
   arr
 end
 
-bubble_sort_by(["hia","hello", "hib", "arsrejdjshshsll", "hey","bubble"]) do |left,right|
+bubble_sort_by(["hia", "hello", "hib", "arsrejdjshshsll", "hey", "bubble"]) do |left, right|
   left.length - right.length
 end
-
