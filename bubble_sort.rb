@@ -10,18 +10,19 @@ end
 def bubble_sort(arr)
   passes = arr.length
   pass = 0
-  last_index = passes - (2 + pass)
-  while pass < passes
+
+  loop do
+    last_index = passes - (2 + pass)
     swaps = 0
-    arr.each_with_index do |ele, index|
-      if index <= last_index && ele > arr[index + 1]
+    arr.each_with_index do |_, index|
+      if index <= last_index && arr[index] > arr[index + 1]
         swap(arr, index, index + 1)
         swaps += 1
       end
     end
-    break if swaps.equal?(0)
+
     pass += 1
-    last_index = passes - (2 + pass)
+    break if swaps.equal?(0) || pass.equal?(passes)
   end
   arr
 end
