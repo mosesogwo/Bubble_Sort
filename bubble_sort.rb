@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # check if we can swap - emits swap
-def can_swap(arr, index, last_index)
+def can_swap?(arr, index, last_index)
   index <= last_index && arr[index] > arr[index + 1]
 end
 
@@ -13,12 +13,23 @@ def swap(arr, source, destination, swaps)
   arr[destination] = temp
 end
 
+# merge swap with can_swap utility
+def swap_if_possible(arr, index, max_index, swaps)
+  if can_swap?(arr, index, max_index)
+    swaps += 1
+    temp = arr[index]
+    arr[index] = arr[index + 1]
+    arr[index + 1] = temp
+  end
+  swaps
+end
+
 def bubble_sort(arr)
   pass = 0
   loop do
     swaps = 0
-    arr.each_with_index do |_, index|
-      swaps = swap(arr, index, index + 1, swaps) if can_swap(arr, index, arr.length - (2 + pass))
+    arr.each_with_index do |_, i|
+      swaps = swap_if_possible(arr, i, arr.length - (2 + pass), swaps)
     end
     pass += 1
     break if swaps.equal?(0) || pass.equal?(arr.length)
