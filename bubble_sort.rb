@@ -1,28 +1,29 @@
 # frozen_string_literal: true
 
+# check if we can swap - emits swap
+def can_swap(arr, index, last_index)
+  index <= last_index && arr[index] > arr[index + 1]
+end
+
 # swap 2 elements between source and destination indices of an array
-def swap(arr, source, destination)
+def swap(arr, source, destination, swaps)
+  swaps ||= 0
+  swaps += 1
   temp = arr[source]
   arr[source] = arr[destination]
   arr[destination] = temp
 end
 
 def bubble_sort(arr)
-  passes = arr.length
   pass = 0
-
   loop do
-    last_index = passes - (2 + pass)
+    last_index = arr.length - (2 + pass)
     swaps = 0
     arr.each_with_index do |_, index|
-      if index <= last_index && arr[index] > arr[index + 1]
-        swap(arr, index, index + 1)
-        swaps += 1
-      end
+      swaps = swap(arr, index, index + 1, swaps) if can_swap(arr, index, last_index)
     end
-
     pass += 1
-    break if swaps.equal?(0) || pass.equal?(passes)
+    break if swaps.equal?(0) || pass.equal?(arr.length)
   end
   arr
 end
@@ -38,7 +39,7 @@ def bubble_sort_by(arr)
     arr.each_with_index do |ele, index|
       if index <= last_index
         diff = yield ele, arr[index + 1]
-        swap(arr, index, index + 1) and swaps += 1 if diff.positive?
+        swap(arr, index, index + 1, swaps) and swaps += 1 if diff.positive?
       end
     end
     break if swaps.equal?(0)
