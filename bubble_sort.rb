@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # swap 2 elements between source and destination indices of an array
 def swap(arr, source, destination)
   temp = arr[source]
@@ -14,7 +15,6 @@ def bubble_sort(arr)
     swaps = 0
     arr.each_with_index do |ele, index|
       if index <= last_index && ele > arr[index + 1]
-        
         swap(arr, index, index + 1)
         swaps += 1
       end
@@ -47,7 +47,7 @@ def bubble_sort_by(arr)
   arr
 end
 
-a = %w(hia hello, hib, arsrejdjshshsll, hey, bubble)
+a = %w(hia hello hib arsrejdjshshsll hey bubble)
 bubble_sort_by(a) do |left, right|
   left.length - right.length
 end
