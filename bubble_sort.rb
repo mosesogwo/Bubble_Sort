@@ -47,7 +47,7 @@ def bubble_sort_by(arr)
   arr
 end
 
-a = %w(hia hello hib arsrejdjshshsll hey bubble)
+a = %w[hia hello hib arsrejdjshshsll hey bubble]
 bubble_sort_by(a) do |left, right|
   left.length - right.length
 end
