@@ -7,7 +7,6 @@ end
 
 # swap 2 elements between source and destination indices of an array
 def swap(arr, source, destination, swaps)
-  swaps ||= 0
   swaps += 1
   temp = arr[source]
   arr[source] = arr[destination]
@@ -17,10 +16,9 @@ end
 def bubble_sort(arr)
   pass = 0
   loop do
-    last_index = arr.length - (2 + pass)
     swaps = 0
     arr.each_with_index do |_, index|
-      swaps = swap(arr, index, index + 1, swaps) if can_swap(arr, index, last_index)
+      swaps = swap(arr, index, index + 1, swaps) if can_swap(arr, index, arr.length - (2 + pass))
     end
     pass += 1
     break if swaps.equal?(0) || pass.equal?(arr.length)
