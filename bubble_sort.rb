@@ -6,11 +6,13 @@ def can_swap?(arr, index, max_i)
 end
 
 # swap 2 elements between source and destination indices of an array
-def swap(arr, source, destination, swaps)
-  swaps += 1
-  temp = arr[source]
-  arr[source] = arr[destination]
-  arr[destination] = temp
+def swap(arr, index, max_i, swaps, block)
+  if index <= max_i && block.call(arr[index], arr[index + 1]).positive?
+    swaps += 1
+    temp = arr[index]
+    arr[index] = arr[index + 1]
+    arr[index + 1] = temp
+  end
   swaps
 end
 
@@ -40,13 +42,12 @@ end
 
 p bubble_sort([6, 5, 3, 9, 0])
 
-def bubble_sort_by(arr)
+def bubble_sort_by(arr, &block)
   pass = 0
   loop do
     swaps = 0
-    max_i = arr.length - (2 + pass)
-    arr.each_with_index do |ele, index|
-      swaps = swap(arr, index, index + 1, swaps) if index <= max_i && (yield ele, arr[index + 1]).positive?
+    arr.each_with_index do |_, index|
+      swaps = swap(arr, index, arr.length - (2 + pass), swaps, block)
     end
     pass += 1
     break if swaps.equal?(0) || pass.equal?(arr.length)
@@ -56,6 +57,6 @@ end
 
 a = %w[hia hello hib arsrejdjshshsll hey bubble]
 bubble_sort_by(a) do |left, right|
-  left.length - right.length
+  left.length <=> right.length
 end
 p a
